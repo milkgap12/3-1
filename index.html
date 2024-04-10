@@ -40,11 +40,40 @@
     <main>
       <section>
         <h2>이번 달 급식</h2>
-        <img src="4th.jpg" alt="My Image" width="50%">
+        <img src="4th.jpg" alt="My Image" width="100%">
       </section>
       <section>
         <h2>다가오는 주요 일정</h2>
-        <p></p>
+        <p>
+
+<p id="countdown"></p>
+
+<script>
+// 2024년 4월 29일을 설정합니다.
+var targetDate = new Date("2024-04-29");
+
+function calculateDDay() {
+  var today = new Date();
+
+  // 시차 보정 (시간대 차이로 인한 오차를 보정하기 위해 사용)
+  var timeZoneOffset = (targetDate.getTimezoneOffset() - today.getTimezoneOffset()) * 60000;
+  targetDate = new Date(targetDate.getTime() + timeZoneOffset);
+
+  var timeDiff = targetDate.getTime() - today.getTime();
+  var daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
+  if (daysDiff > 0) {
+    document.getElementById("countdown").innerText = "중간고사 D-" + daysDiff + "";
+  } else if (daysDiff === 0) {
+    document.getElementById("countdown").innerText = "D-Day";
+  } else {
+    document.getElementById("countdown").innerText = "D+" + Math.abs(daysDiff) + "";
+  }
+}
+
+// 페이지 로딩 시 자동으로 D-Day를 계산합니다.
+calculateDDay();
+</script></p>
       </section>
       <!-- 다른 공지사항 섹션들을 필요에 따라 추가할 수 있습니다 -->
     </main>
