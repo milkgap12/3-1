@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>2학년 10반</title>
+  <title>3학년 1반</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -32,57 +32,71 @@
     }
   </style>
 </head>
+
 <body>
   <div class="container">
     <header>
-      <h1>2-10</h1>
+      <h1>3-1</h1>
     </header>
     <main>
       <section>
         <h2>이번 달 급식</h2>
-        <img src="IMG_9492.jpeg" alt="My Image" width="100%">
-        <img src="IMG_9493.jpeg" alt="My Image" width="100%">
-        <img src="IMG_9494.jpeg" alt="My Image" width="100%">
-      
+        <img src="20253.jpg" alt="My Image" width="100%">
       </section>
       <section>
         <h2>다가오는 주요 일정</h2>
-        <p>
+            <ul id="countdown-list"></ul>
 
-<p id="countdown"></p>
-
-<script>
-// 2024년 7월 1일을 설정합니다.
-var targetDate = new Date("2024-07-01");
-
-function calculateDDay() {
-  var today = new Date();
-
-  // 시차 보정 (시간대 차이로 인한 오차를 보정하기 위해 사용)
-  var timeZoneOffset = (targetDate.getTimezoneOffset() - today.getTimezoneOffset()) * 60000;
-  targetDate = new Date(targetDate.getTime() + timeZoneOffset);
-
-  var timeDiff = targetDate.getTime() - today.getTime();
-  var daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
-
-  if (daysDiff > 0) {
-    document.getElementById("countdown").innerText = "중간고사 D-" + daysDiff + "";
-  } else if (daysDiff === 0) {
-    document.getElementById("countdown").innerText = "D-Day";
-  } else {
-    document.getElementById("countdown").innerText = "D+" + Math.abs(daysDiff) + "";
-  }
-}
-
-// 페이지 로딩 시 자동으로 D-Day를 계산합니다.
-calculateDDay();
-</script></p>
       </section>
       <!-- 다른 공지사항 섹션들을 필요에 따라 추가할 수 있습니다 -->
     </main>
     <footer>
-      <p>&copy; 2024 2학년 10반 학급 공지사항</p>
+      <p>2025 3학년 1반 학급 공지사항</p>
     </footer>
   </div>
+  <script>
+      var targetDates = [
+          { date: "2025-03-26", name: "3월 모의고사" },
+          { date: "2025-04-04", name: "졸업사진 촬영" },
+          { date: "2025-04-28", name: "중간고사" },
+          { date: "2025-11-13", name: "수능" }
+      ];
+
+      function calculateDDay(targetDateStr, eventName) {
+          var targetDate = new Date(targetDateStr);
+          var today = new Date();
+
+          // 시차 보정 (시간대 차이로 인한 오차를 보정하기 위해 사용)
+          var timeZoneOffset = (targetDate.getTimezoneOffset() - today.getTimezoneOffset()) * 60000;
+          targetDate = new Date(targetDate.getTime() + timeZoneOffset);
+
+          var timeDiff = targetDate.getTime() - today.getTime();
+          var daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
+          let resultText = "";
+          if (daysDiff > 0) {
+              resultText = `${eventName} D-${daysDiff}`;
+          } else if (daysDiff === 0) {
+              resultText = `${eventName} D-Day`;
+          } else {
+              resultText = `${eventName} D+${Math.abs(daysDiff)}`;
+          }
+
+          return resultText;
+      }
+
+      function displayDDays() {
+          var countdownList = document.getElementById("countdown-list");
+          countdownList.innerHTML = ""; // 기존 리스트 초기화
+
+          targetDates.forEach(event => {
+              var li = document.createElement("li");
+              li.innerText = calculateDDay(event.date, event.name);
+              countdownList.appendChild(li);
+          });
+      }
+
+      displayDDays();
+  </script>
 </body>
 </html>
